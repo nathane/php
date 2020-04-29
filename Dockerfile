@@ -1,21 +1,10 @@
-FROM php:5.6.40-cli
+FROM docker.pkg.github.com/nathane/php/php:5.6-cli
 
-RUN apt-get update && apt-get -y install git libjpeg-dev libmagickwand-dev \
-  libmemcached-dev libpng-dev libpq-dev libsqlite3-dev libxml2-dev uuid-dev \
-  unzip wget zlib1g-dev && \
-  rm -rf /var/lib/apt/lists/*
+ENV COMPOSER_ALLOW_SUPERUSER 1
+ENV COMPOSER_VERSION 1.10.5
+ENV PRESTISSIMO_VERSION 0.3.10
 
-RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr && \
-  docker-php-ext-install bcmath gd intl opcache pcntl pdo pdo_mysql \
-  pdo_pgsql pdo_sqlite soap sockets zip
-
-RUN pecl install imagick-3.4.4 memcached-2.2.0 mongodb-1.7.4 uuid-1.0.5 \
-  redis-4.3.0 && docker-php-ext-enable imagick memcached mongodb uuid redis
-
-RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini && \
-  rm $PHP_INI_DIR/php.ini-development && \
-  sed 's/short_open_tag=On/short_open_tag=Off/' $PHP_INI_DIR/php.ini && { \
-  echo 'memory_limit=2048M'; \
-  echo 'upload_max_filesize=128M'; \
-  echo 'post_max_size=128M'; \
-  } > /usr/local/etc/php/conf.d/memory-limit.ini
+RUN wget https://getcomposer.org/download/$COMPOSER_VERSION/composer.phar \
+  && mv composer.phar /usr/local/bin/composer \
+  && chmod +x /usr/local/bin/composer \
+  && composer global require "hirak/prestissimo:$PRESTISSIMO_VERSION"
