@@ -1,4 +1,4 @@
-FROM php:7.2.30-cli
+FROM php:7.2.30-fpm
 
 RUN apt-get update && apt-get -y install git libjpeg-dev libmagickwand-dev \
   libmemcached-dev libpng-dev libpq-dev libsqlite3-dev libxml2-dev unzip \
@@ -14,7 +14,10 @@ RUN pecl install ast-1.0.6 imagick-3.4.4 memcached-3.1.5 mongodb-1.8.0beta1 \
 RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini && \
   rm $PHP_INI_DIR/php.ini-development && \
   sed 's/short_open_tag=On/short_open_tag=Off/' $PHP_INI_DIR/php.ini && { \
-  echo 'memory_limit=2048M'; \
+  echo 'memory_limit=1024M'; \
   echo 'upload_max_filesize=128M'; \
   echo 'post_max_size=128M'; \
-  } > /usr/local/etc/php/conf.d/memory-limit.ini
+  } > /usr/local/etc/php/conf.d/memory-limit.ini && \
+  sed -i 's/www-data/root/g' /usr/local/etc/php-fpm.d/www.conf
+
+CMD ["php-fpm", "-R"]
