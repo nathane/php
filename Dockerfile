@@ -1,10 +1,6 @@
-FROM docker.pkg.github.com/nathane/php/php:7.1-cli
+FROM docker.pkg.github.com/nathane/php/php:7.1-base
 
-ENV COMPOSER_ALLOW_SUPERUSER 1
-ENV COMPOSER_VERSION 1.10.5
-ENV PRESTISSIMO_VERSION 0.3.10
+ENV XDEBUG_VERSION 2.9.5
 
-RUN wget https://getcomposer.org/download/$COMPOSER_VERSION/composer.phar \
-  && mv composer.phar /usr/local/bin/composer \
-  && chmod +x /usr/local/bin/composer \
-  && composer global require "hirak/prestissimo:$PRESTISSIMO_VERSION"
+RUN pecl install xdebug-$XDEBUG_VERSION \
+  && docker-php-ext-enable xdebug
