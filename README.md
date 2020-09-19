@@ -1,13 +1,13 @@
-# PHP 8.0-fpm ![Docker CI/CD](https://github.com/nathane/php/workflows/Docker%20CI/CD/badge.svg?branch=8.0-fpm)
+# PHP 8.0 ![Docker CI/CD](https://github.com/nathane/php/workflows/Docker%20CI/CD/badge.svg?branch=8.0)
 
 ### ![Terminal](icons/terminal.svg) Pull image from the command line:
 
 ```
-docker pull docker.pkg.github.com/nathane/php/php:8.0-fpm
+docker pull docker.pkg.github.com/nathane/php/php:8.0
 ```
 
 ### ![Code](icons/code.svg) Use as base image in DockerFile:
 
 ```
-FROM docker.pkg.github.com/nathane/php/php:8.0-fpm
+FROM docker.pkg.github.com/nathane/php/php:8.0
 ```
