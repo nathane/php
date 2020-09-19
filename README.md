@@ -1,13 +1,13 @@
-# PHP 7.4 ![Docker CI/CD](https://github.com/nathane/php/workflows/Docker%20CI/CD/badge.svg?branch=7.4)
+# PHP 8.0-cli ![Docker CI/CD](https://github.com/nathane/php/workflows/Docker%20CI/CD/badge.svg?branch=8.0-cli)
 
 ### ![Terminal](icons/terminal.svg) Pull image from the command line:
 
 ```
-docker pull docker.pkg.github.com/nathane/php/php:7.4
+docker pull docker.pkg.github.com/nathane/php/php:8.0-cli
 ```
 
 ### ![Code](icons/code.svg) Use as base image in DockerFile:
 
 ```
-FROM docker.pkg.github.com/nathane/php/php:7.4
+FROM docker.pkg.github.com/nathane/php/php:8.0-cli
 ```
