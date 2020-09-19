@@ -1,26 +1,20 @@
-FROM php:8.0.0beta4-cli
+FROM docker.pkg.github.com/nathane/php/php:8.0-cli
 
-RUN apt-get update && apt-get -y install git libjpeg-dev libmagickwand-dev \
-    libmemcached-dev libpng-dev libpq-dev libsqlite3-dev libxml2-dev \
-    libzip-dev uuid-dev unzip wget zlib1g-dev && \
-    rm -rf /var/lib/apt/lists/*
-RUN wget http://pear.php.net/go-pear.phar && php go-pear.phar \
-    && pecl update-channels && rm -rf /tmp/pear ~/.pearrc go-pear.phar
-RUN docker-php-ext-configure gd --with-jpeg && docker-php-ext-install bcmath \
-    gd intl opcache pcntl pdo pdo_mysql pdo_pgsql pdo_sqlite soap sockets zip
-RUN pecl install -f ast-1.0.10 memcached-3.1.5 uuid-1.1.0 \
-    && git clone git://github.com/krakjoe/apcu.git && cd apcu && phpize \
-    && ./configure && make && make install && cd ../ && rm -rf apcu \
-    && git clone git://github.com/Imagick/imagick.git && cd imagick && phpize \
-    && ./configure && make && make install && cd ../ && rm -rf imagick \
-    && git clone git://github.com/phpredis/phpredis.git && cd phpredis && phpize \
-    && ./configure && make && make install && cd ../ && rm -rf phpredis \
-    && docker-php-ext-enable apcu ast imagick memcached uuid redis
+ENV COMPOSER_ALLOW_SUPERUSER 1
+ENV COMPOSER_1_VERSION 1.10.13
+ENV COMPOSER_2_VERSION 2.0.0-RC1
 
-RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini && \
-    rm $PHP_INI_DIR/php.ini-development && \
-    sed 's/short_open_tag=On/short_open_tag=Off/' $PHP_INI_DIR/php.ini && { \
-		echo 'memory_limit=2048M'; \
-		echo 'upload_max_filesize=128M'; \
-		echo 'post_max_size=128M'; \
-	} > /usr/local/etc/php/conf.d/memory-limit.ini
+RUN wget https://getcomposer.org/download/$COMPOSER_1_VERSION/composer.phar \
+    && mv composer.phar /usr/local/bin/composer1 \
+    && chmod +x /usr/local/bin/composer1 \
+    && wget https://getcomposer.org/download/$COMPOSER_2_VERSION/composer.phar \
+    && mv composer.phar /usr/local/bin/composer2 \
+    && chmod +x /usr/local/bin/composer2 \
+    && ln /usr/local/bin/composer2 /usr/local/bin/composer
+
+RUN curl -sS https://get.symfony.com/cli/installer | bash - \
+    && mv /root/.symfony/bin/symfony /usr/local/bin/symfony
+
+RUN wget https://scrutinizer-ci.com/ocular.phar \
+    && mv ocular.phar /usr/local/bin/ocular \
+    && chmod 755 /usr/local/bin/ocular
