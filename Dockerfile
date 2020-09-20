@@ -1,4 +1,4 @@
-FROM docker.pkg.github.com/nathane/php/php:7.2-cli
+FROM ghcr.io/nathane/php:7.2-cli
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER_1_VERSION 1.10.13
