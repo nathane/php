@@ -1,4 +1,4 @@
-FROM docker.pkg.github.com/nathane/php/php:7.2-base
+FROM ghcr.io/nathane/php:7.2-base
 
 ENV XDEBUG_VERSION 2.9.7
 
