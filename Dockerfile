@@ -1,4 +1,4 @@
-FROM docker.pkg.github.com/nathane/php/php:8.0-base
+FROM ghcr.io/nathane/php:8.0-base
 
 RUN git clone git://github.com/xdebug/xdebug.git \
     && cd xdebug \
