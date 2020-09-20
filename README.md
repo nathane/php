@@ -3,11 +3,11 @@
 ### ![Terminal](icons/terminal.svg) Pull image from the command line:
 
 ```
-docker pull docker.pkg.github.com/nathane/php/php:7.2
+docker pull ghcr.io/nathane/php:7.2
 ```
 
 ### ![Code](icons/code.svg) Use as base image in DockerFile:
 
 ```
-FROM docker.pkg.github.com/nathane/php/php:7.2
+FROM ghcr.io/nathane/php:7.2
 ```
