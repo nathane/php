@@ -1,4 +1,4 @@
-FROM docker.pkg.github.com/nathane/php/php:5.6-base
+FROM ghcr.io/nathane/php:5.6-base
 
 ENV XDEBUG_VERSION 2.5.5
 
