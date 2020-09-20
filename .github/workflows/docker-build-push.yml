@@ -34,7 +34,7 @@ jobs:
 
     - name: Set Latest Tags
       run: echo ::set-env name=IMAGE_TAG::"${{ env.IMAGE_TAG }}, ghcr.io/${{ github.repository_owner }}/php:latest"
-      if: ${GITHUB_REF#refs/heads/} == '7.4'
+      if: ${{ env.IMAGE_TAG  == '7.4' }}
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
