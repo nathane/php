@@ -1,4 +1,4 @@
-FROM php:7.2.33-cli
+FROM php:7.2.34-cli
 
 RUN apt-get update && apt-get -y install git libjpeg-dev libmagickwand-dev \
     libmemcached-dev libpng-dev libpq-dev libsqlite3-dev libxml2-dev uuid-dev \
