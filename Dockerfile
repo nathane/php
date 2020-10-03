@@ -1,4 +1,4 @@
-FROM php:7.3.22-fpm
+FROM php:7.3.23-fpm
 
 RUN apt-get update && apt-get -y install git libjpeg-dev libmagickwand-dev \
     libmemcached-dev libpng-dev libpq-dev libsqlite3-dev libxml2-dev \
