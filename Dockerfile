@@ -1,4 +1,4 @@
-FROM php:8.0.0beta4-fpm
+FROM php:8.0.0rc1-fpm
 
 RUN apt-get update && apt-get -y install git libjpeg-dev libmagickwand-dev \
     libmemcached-dev libpng-dev libpq-dev libsqlite3-dev libxml2-dev \
