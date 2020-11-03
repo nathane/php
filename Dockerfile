@@ -1,4 +1,4 @@
-FROM php:8.0.0rc1-fpm
+FROM php:8.0.0RC3-fpm
 
 RUN apt-get update && apt-get -y install git libjpeg-dev libmagickwand-dev \
     libmemcached-dev libpng-dev libpq-dev libsqlite3-dev libxml2-dev \
@@ -8,13 +8,11 @@ RUN wget http://pear.php.net/go-pear.phar && php go-pear.phar \
     && pecl update-channels && rm -rf /tmp/pear ~/.pearrc go-pear.phar
 RUN docker-php-ext-configure gd --with-jpeg && docker-php-ext-install bcmath \
     gd intl opcache pcntl pdo pdo_mysql pdo_pgsql pdo_sqlite soap sockets zip
-RUN pecl install -f ast-1.0.10 memcached-3.1.5 uuid-1.1.0 \
-    && git clone git://github.com/krakjoe/apcu.git && cd apcu && phpize \
-    && ./configure && make && make install && cd ../ && rm -rf apcu \
+RUN pecl install -f apcu-5.1.19 ast-1.0.10 uuid-1.2.0 redis-5.3.2 \
     && git clone git://github.com/Imagick/imagick.git && cd imagick && phpize \
     && ./configure && make && make install && cd ../ && rm -rf imagick \
-    && git clone git://github.com/phpredis/phpredis.git && cd phpredis && phpize \
-    && ./configure && make && make install && cd ../ && rm -rf phpredis \
+    && git clone git://github.com/php-memcached-dev/php-memcached.git && cd php-memcached && phpize \
+    && ./configure && make && make install && cd ../ && rm -rf php-memcached \
     && docker-php-ext-enable apcu ast imagick memcached uuid redis
 
 RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini && \
