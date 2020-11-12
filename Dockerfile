@@ -8,12 +8,12 @@ RUN wget http://pear.php.net/go-pear.phar && php go-pear.phar \
     && pecl update-channels && rm -rf /tmp/pear ~/.pearrc go-pear.phar
 RUN docker-php-ext-configure gd --with-jpeg && docker-php-ext-install bcmath \
     gd intl opcache pcntl pdo pdo_mysql pdo_pgsql pdo_sqlite soap sockets zip
-RUN pecl install -f apcu-5.1.19 ast-1.0.10 uuid-1.2.0 redis-5.3.2 \
+RUN pecl install -f apcu-5.1.19 ast-1.0.10 mongodb-1.9.0RC1 uuid-1.2.0 redis-5.3.2 \
     && git clone git://github.com/Imagick/imagick.git && cd imagick && phpize \
     && ./configure && make && make install && cd ../ && rm -rf imagick \
     && git clone git://github.com/php-memcached-dev/php-memcached.git && cd php-memcached && phpize \
     && ./configure && make && make install && cd ../ && rm -rf php-memcached \
-    && docker-php-ext-enable apcu ast imagick memcached uuid redis
+    && docker-php-ext-enable apcu ast imagick memcached mongodb uuid redis
 
 RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini && \
     rm $PHP_INI_DIR/php.ini-development && \
