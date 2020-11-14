@@ -2,7 +2,7 @@ FROM ghcr.io/nathane/php:7.0-cli
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER_1_VERSION 1.10.17
-ENV COMPOSER_2_VERSION 2.0.6
+ENV COMPOSER_2_VERSION 2.0.7
 
 RUN wget https://getcomposer.org/download/$COMPOSER_1_VERSION/composer.phar \
     && mv composer.phar /usr/local/bin/composer1 \
