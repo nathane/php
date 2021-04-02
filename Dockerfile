@@ -1,14 +1,12 @@
-FROM php:8.0.0RC3-fpm
+FROM php:8.0.3-fpm
 
 RUN apt-get update && apt-get -y install git libjpeg-dev libmagickwand-dev \
     libmemcached-dev libpng-dev libpq-dev libsqlite3-dev libxml2-dev \
     libzip-dev uuid-dev unzip wget zlib1g-dev && \
     rm -rf /var/lib/apt/lists/*
-RUN wget http://pear.php.net/go-pear.phar && php go-pear.phar \
-    && pecl update-channels && rm -rf /tmp/pear ~/.pearrc go-pear.phar
 RUN docker-php-ext-configure gd --with-jpeg && docker-php-ext-install bcmath \
     gd intl opcache pcntl pdo pdo_mysql pdo_pgsql pdo_sqlite soap sockets zip
-RUN pecl install -f apcu-5.1.19 ast-1.0.10 mongodb-1.9.0RC1 uuid-1.2.0 redis-5.3.2 \
+RUN pecl install -f apcu-5.1.20 ast-1.0.10 mongodb-1.9.0 uuid-1.2.0 redis-5.3.4 \
     && git clone git://github.com/Imagick/imagick.git && cd imagick && phpize \
     && ./configure && make && make install && cd ../ && rm -rf imagick \
     && git clone git://github.com/php-memcached-dev/php-memcached.git && cd php-memcached && phpize \
