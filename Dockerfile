@@ -1,5 +1,6 @@
 FROM ghcr.io/nathane/php:8.0-base
 
-RUN git clone git://github.com/xdebug/xdebug.git && cd xdebug && phpize \
-    && ./configure --enable-xdebug && make && make install && cd ../ \
-    && rm -rf xdebug && docker-php-ext-enable xdebug
+ENV XDEBUG_VERSION 3.0.3
+
+RUN pecl install xdebug-$XDEBUG_VERSION \
+    && docker-php-ext-enable xdebug
